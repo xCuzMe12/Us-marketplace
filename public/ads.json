@@ -1,0 +1,17 @@
+[
+    {
+      "naslov": "AK-47",
+      "imgSrc": "https://static01.nyt.com/images/2013/12/24/world/24kalashnikov1/24kalashnikov1-superJumbo.jpg",
+      "seller": "Zigger",
+      "type": "produkt",
+      "kategorije": "orožije"
+    },
+    {
+      "naslov": "Meth",
+      "imgSrc": "https://media.wired.com/photos/5932cb032a990b06268ac952/master/w_2560%2Cc_limit/Heisenberg_Candy_660.jpg",
+      "seller": "Heisenberg",
+      "type": "produkt",
+      "kategorije": "droge"
+    }
+  ]
+  

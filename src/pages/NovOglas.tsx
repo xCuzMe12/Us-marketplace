@@ -1,0 +1,244 @@
+import React, { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { storage } from "../firebase"; // Firebase Storage instance
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+
+export const NovOglas = () => {
+  const [naslov, setNaslov] = useState("");
+  const [type, setType] = useState("");
+  const [kategorija, setKategorija] = useState("");
+  const [cena, setCena] = useState("");
+  const [images, setImages] = useState<string[]>([]);
+  const [description, setDescription] = useState("");
+  //const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+  // Handle file input change
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files as FileList);
+    const imageUrls = files.map((file) => URL.createObjectURL(file)); // Generate temporary blob URLs
+    setImages(imageUrls); // Update state with blob URLs
+  };
+  const navigate = useNavigate();
+
+  const handleObjavi = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    const newAd = {
+      naslov,
+      imgSrc: images[0] || "", // Blob URL
+      type,
+      cena,
+      kategorije: kategorija,
+      seller: "[anonymous]",
+      description,
+    };
+  
+    try {
+      // Add the ad to Firestore
+      await addDoc(collection(db, "ads"), newAd);
+      console.log("Ad added to Firestore successfully!");
+  
+      // Fetch the existing ads from ads.json
+      const response = await fetch("/ads.json");
+      const existingAds = (await response.json()) || [];
+  
+      // Update the ads.json file with the new ad
+      const updatedAds = [...existingAds, newAd];
+      await fetch("/ads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedAds),
+      });
+  
+      console.log("Ad added to ads.json successfully!");
+    } catch (error) {
+      console.error("Error adding ad:", error);
+    }
+  };
+
+  return (
+    <div
+      className="d-flex justify-content-center align-items-center vh-100"
+      style={{ backgroundColor: "#343a40", marginLeft: "5%", marginTop: "10%"}}
+    >
+      <form
+        className="p-4 rounded shadow"
+        style={{
+          width: "100%",
+          backgroundColor: "#343a40",
+          minHeight: "100vh",
+          minWidth: "70vh",
+        }}
+        onSubmit={handleObjavi}
+      >
+        <h3 className="text-center mb-4" style={{ color: "#b71c1c" }}>
+          Objavi svoj oglas
+        </h3>
+
+        <div className="mb-3">
+          <label
+            htmlFor="title"
+            className="form-label"
+            style={{ color: "#980606" }}
+          >
+            Naslov oglasa
+          </label>
+          <input
+            type="text"
+            id="name"
+            className="form-control"
+            placeholder="naslov"
+            required
+            value={naslov}
+            onChange={(e) => setNaslov(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-3">
+          <label
+            htmlFor="price"
+            className="form-label"
+            style={{ color: "#980606" }}
+          >
+            Cena
+          </label>
+          <input
+            type="text"
+            id="name"
+            className="form-control"
+            placeholder="100 €/g"
+            required
+            value={cena}
+            onChange={(e) => setCena(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-3">
+          <label
+            htmlFor="description"
+            className="form-label"
+            style={{ color: "#980606" }}
+          >
+            Opis
+          </label>
+          <input
+            type="text"
+            id="description"
+            className="form-control"
+            placeholder="Kvaliteten kokain iz..."
+            required
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label" style={{ color: "#980606" }}>
+            Vrsta oglasa
+          </label>
+          <div className="d-flex">
+            <div className="form-check" style={{ paddingRight: "15px" }}>
+              <input
+                className="form-check-input"
+                type="radio"
+                name="twoOptions"
+                id="option1"
+                value="produkt"
+                onChange={() => setType("produkt")}
+              />
+              <label
+                className="form-check-label"
+                htmlFor="option1"
+                style={{ color: "#b71c1c" }}
+              >
+                Produkt
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="twoOptions"
+                id="option2"
+                value="storitev"
+                onChange={() => setType("storitev")}
+              />
+              <label
+                className="form-check-label"
+                htmlFor="option2"
+                style={{ color: "#b71c1c" }}
+              >
+                Storitev
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label" style={{ color: "#980606" }}>
+            Kategorija
+          </label>
+          <select
+            className="form-select"
+            style={{ backgroundColor: "#343a40", color: "#b71c1c" }}
+            onChange={(e) => setKategorija(e.target.value)}
+          >
+            <option value="droge">Droge</option>
+            <option value="orožije">Orožije</option>
+            <option value="ljudje">Ljudje</option>
+            <option value="organi">Organi</option>
+            <option value="ostalo">Ostalo</option>
+          </select>
+        </div>
+
+        <div className="mb-3">
+          <label
+            htmlFor="image"
+            className="form-label"
+            style={{ color: "#980606" }}
+          >
+            Izberi sliko
+          </label>
+          <input
+            type="file"
+            id="image"
+            className="form-control"
+            accept="image/*"
+            multiple
+            onChange={handleFileChange}
+          />
+        </div>
+
+        <div className="mb-3">
+          {images.length > 0 && (
+            <div className="image-preview mt-3">
+              <h5 style={{ color: "#980606" }}>Slika:</h5>
+              <div className="d-flex flex-wrap gap-2">
+                {images.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Uploaded Preview ${index + 1}`}
+                    className="img-thumbnail"
+                    style={{ maxWidth: "100px", maxHeight: "100px" }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <button type="submit" className="btn btn-danger w-100">
+          Objavi
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default NovOglas;
