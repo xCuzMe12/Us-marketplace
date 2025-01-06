@@ -18,9 +18,25 @@ export const NovOglas = () => {
   // Handle file input change
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files as FileList);
-    const imageUrls = files.map((file) => URL.createObjectURL(file)); // Generate temporary blob URLs
-    setImages(imageUrls); // Update state with blob URLs
+  
+    const readFilesAsBase64 = async (files: File[]): Promise<string[]> => {
+      const base64Promises = files.map(
+        (file) =>
+          new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(file); // Convert file to Base64
+          })
+      );
+      return Promise.all(base64Promises);
+    };
+  
+    readFilesAsBase64(files)
+      .then((base64Images) => setImages(base64Images))
+      .catch((error) => console.error("Error converting files to Base64:", error));
   };
+  
   const navigate = useNavigate();
 
   const handleObjavi = async (e: React.FormEvent) => {
@@ -28,10 +44,10 @@ export const NovOglas = () => {
   
     const newAd = {
       naslov,
-      imgSrc: images[0] || "", // Blob URL
+      imgSrc: images[0] || "", // Base64 string
       type,
       cena,
-      kategorije: kategorija,
+      kategorija: kategorija,
       seller: "[anonymous]",
       description,
     };
@@ -40,27 +56,13 @@ export const NovOglas = () => {
       // Add the ad to Firestore
       await addDoc(collection(db, "ads"), newAd);
       console.log("Ad added to Firestore successfully!");
-  
-      // Fetch the existing ads from ads.json
-      const response = await fetch("/ads.json");
-      const existingAds = (await response.json()) || [];
-  
-      // Update the ads.json file with the new ad
-      const updatedAds = [...existingAds, newAd];
-      await fetch("/ads", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedAds),
-      });
-  
-      console.log("Ad added to ads.json successfully!");
+      navigate("/");
+      location.reload();
     } catch (error) {
       console.error("Error adding ad:", error);
     }
   };
-
+  
   return (
     <div
       className="d-flex justify-content-center align-items-center vh-100"
@@ -189,9 +191,10 @@ export const NovOglas = () => {
             onChange={(e) => setKategorija(e.target.value)}
           >
             <option value="droge">Droge</option>
-            <option value="orožije">Orožije</option>
+            <option value="orožije">Orožje</option>
             <option value="ljudje">Ljudje</option>
             <option value="organi">Organi</option>
+            <option value="tehnika">Tehnika</option>
             <option value="ostalo">Ostalo</option>
           </select>
         </div>

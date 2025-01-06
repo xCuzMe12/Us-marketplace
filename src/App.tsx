@@ -13,25 +13,76 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 
-function App() {
-  const [ads, setAds] = useState<any[]>([]);
+type Filters = {
+  kategorija?: string;
+  vrsta?: string;
+  od?: string;
+};
 
-   // Fetch ads dynamically
-   useEffect(() => {
+type Ad = {
+  id: string;
+  naslov: string;
+  imgSrc?: string;
+  type: string;
+  cena: string;
+  kategorija: string;
+  seller: string;
+  description?: string;
+};
+
+function App() {
+  const [ads, setAds] = useState<Ad[]>([]);
+  const [filters, setFilters] = useState<Filters>({});
+
+  const handleApplyFilters = (newFilters: Filters) => {
+    setFilters(newFilters);
+  };
+
+  // Fetch ads dynamically
+  useEffect(() => {
     const fetchAds = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "ads"));
-        const adsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setAds(adsData);
+        const adsData: Ad[] = querySnapshot.docs.map((doc) => {
+          const data = doc.data() as Omit<Ad, "id">; // Exclude `id` from the type
+          return { id: doc.id, ...data }; // Add `id` explicitly
+        });
+  
+        // Fetch ads.json as a fallback
+        const response = await fetch("/ads.json");
+        const localAds: Ad[] = await response.json();
+  
+        // Merge Firestore ads with ads.json, using local ads for missing images
+        const mergedAds = adsData.map((ad) => {
+          if (!ad.imgSrc || ad.imgSrc.startsWith("blob:")) {
+            const fallbackAd = localAds.find((localAd) => localAd.naslov === ad.naslov);
+            if (fallbackAd) {
+              ad.imgSrc = fallbackAd.imgSrc; // Use the local ad's image URL
+            }
+          }
+  
+          return ad;
+        });
+  
+        // Apply filters
+        const filteredAds = mergedAds.filter((ad) => {
+          console.log("filters: ", filters.vrsta);
+          console.log("ad: ", ad.type);
+
+          if (filters.kategorija && ad.kategorija !== filters.kategorija) return false;
+          if (filters.vrsta && filters.vrsta !== "" && ad.type !== filters.vrsta) return false;
+          if (filters.od && filters.od !== "" && !ad.seller.toLowerCase().includes(filters.od.toLowerCase())) return false;
+          return true;
+        });
+  
+        setAds(filteredAds); // Update the ads state with the filtered ads
       } catch (error) {
-        console.error("Error fetching ads: ", error);
+        console.error("Error fetching ads:", error);
       }
     };
-    fetchAds();
-  }, []);
-
-
   
+    fetchAds();
+  }, [filters]); // Add filters as a dependency
   
 
   return (
@@ -43,7 +94,7 @@ function App() {
             element={
               <>
                 <Topbar>UŠ</Topbar>
-                <SideBar>Možnosti</SideBar>
+                <SideBar onApplyFilters={handleApplyFilters}>Možnosti</SideBar>
               </>
             }
           />

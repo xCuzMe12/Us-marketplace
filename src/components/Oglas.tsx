@@ -2,8 +2,8 @@ interface Props {
   naslov: string;
   imgSrc?: string;
   seller?: string;
-  type: "produkt" | "storitev";
-  kategorija: "droge" | "orožije" | "ljudje" | "organi" | "ostalo";
+  type: string;
+  kategorija: string;
   cena?: string;
 }
 
