@@ -1,18 +1,30 @@
 import { ReactNode } from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../auth";
+import { useAuth } from "../contexts/authContext";  
 
 interface Props {
   children: ReactNode;
 }
 
 export const Topbar = ({ children }: Props) => {
-  const navigate = useNavigate(); // This should be outside the button handler
+  const navigate = useNavigate(); 
 
-  
-  const temp = () => {
+  const { currentUser, userLoggedIn, loading, setCurrentUser } = useAuth();  // Destructure `setCurrentUser` here
+
+  const temp = async () => {
+    try {
+      const userCredential = await doSignInWithGoogle();
+      const user = userCredential.user;
+      console.log(user);
+
+      
+    } catch (error) {
+      console.error('Error during sign-in:', error);
+    }
   }
-
+  
   const handleButton = () => {
     navigate("/");
   };
