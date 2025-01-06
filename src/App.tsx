@@ -11,6 +11,7 @@ import NovOglas from "./pages/NovOglas";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
+import { AuthProvider } from "./contexts/authContext"
 
 
 type Filters = {
@@ -86,6 +87,7 @@ function App() {
   
 
   return (
+  <AuthProvider>
     <Router>
       <div className="d-flex" style={{ minHeight: "100vh", minWidth: "100vh", backgroundColor: '#343a40' }}>
         <Routes>
@@ -128,8 +130,8 @@ function App() {
         <div className="fakeSidebar bg-dark" style={{display: "flex"}}></div>
         <div className="fakeBackground"></div>
       </div>
-      
     </Router>
+  </AuthProvider>
   );
 }
 
