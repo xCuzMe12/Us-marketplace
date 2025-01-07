@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../auth";
@@ -12,7 +12,9 @@ interface Props {
 export const Topbar = ({ children }: Props) => {
   const navigate = useNavigate(); 
 
-  const { currentUser, userLoggedIn, loading, setCurrentUser } = useAuth();  // Destructure `setCurrentUser` here
+  //const { currentUser, userLoggedIn, loading, setCurrentUser } = useAuth();  // Destructure `setCurrentUser` here
+  const [currentUser, setCurrentUser] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const temp = async () => {
     try {
@@ -20,6 +22,10 @@ export const Topbar = ({ children }: Props) => {
       const user = userCredential.user;
       sessionStorage.setItem("isLoggedIn", "true");
       sessionStorage.setItem("user", JSON.stringify(user));
+
+      setLoggedIn(true);
+      setCurrentUser(user.displayName || "Anonymous");
+
       const userCheck = {
         displayName: user.displayName || "Anonymous", 
         email: user.email || "", 
@@ -30,6 +36,15 @@ export const Topbar = ({ children }: Props) => {
     }
   }
   
+  const logout = () => {
+    sessionStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("user");
+    setLoggedIn(false);
+    setCurrentUser("");
+    console.log("User logged out");
+  };
+
+
   const handleButton = () => {
     navigate("/");
   };
@@ -42,9 +57,17 @@ export const Topbar = ({ children }: Props) => {
         </Button>
       </div>
       <div className="topbar-right">
-        <Button btnName="Testing" color="secondary" onSelectBtn={temp}>
-          <p className="topbar-right" style={{color: '#ffffff'}}>Račun</p>
-        </Button>
+        {!loggedIn && <Button btnName="Testing" color="secondary" onSelectBtn={temp}>
+          <p className="topbar-right" style={{color: '#ffffff'}}>Prijava</p>
+        </Button>}
+        {loggedIn && (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <h6 style={{ color: "#ffffff", margin: 0 }}>Logged in as: {currentUser}</h6>
+            <Button btnName="Logout" color="secondary" onSelectBtn={logout}>
+              <p className="topbar-right" style={{ color: "#ffffff" }}>Odjava</p>
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
