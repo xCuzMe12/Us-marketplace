@@ -62,7 +62,7 @@ export const Topbar = ({ children }: Props) => {
         </Button>}
         {loggedIn && (
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <h6 style={{ color: "#ffffff", margin: 0 }}>Logged in as: {currentUser}</h6>
+            <h6 style={{ color: "#ffffff", margin: 0 }}>Prijavljen kot: {currentUser}</h6>
             <Button btnName="Logout" color="secondary" onSelectBtn={logout}>
               <p className="topbar-right" style={{ color: "#ffffff" }}>Odjava</p>
             </Button>
