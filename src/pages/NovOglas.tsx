@@ -4,6 +4,7 @@ import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { storage } from "../firebase"; // Firebase Storage instance
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getUser } from "../authUtils";
 
 
 export const NovOglas = () => {
@@ -15,6 +16,9 @@ export const NovOglas = () => {
   const [opis, setOpis] = useState("");
   //const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
+  const user = getUser();
+  const displayName = user.displayName;
+  console.log(displayName);
   // Handle file input change
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files as FileList);
@@ -48,7 +52,7 @@ export const NovOglas = () => {
       type,
       cena,
       kategorija: kategorija,
-      seller: "[anonymous]",  //spremen pol na ime k ga dobis z avtentikacijo
+      seller: displayName,
       opis: opis,
     };
   
