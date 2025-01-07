@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 import { AuthProvider } from "./contexts/authContext"
+import SelectedOglas from "./pages/SelectedOglas";
 
 
 type Filters = {
@@ -28,7 +29,7 @@ type Ad = {
   cena: string;
   kategorija: string;
   seller: string;
-  description?: string;
+  opis?: string;
 };
 
 function App() {
@@ -85,6 +86,10 @@ function App() {
     fetchAds();
   }, [filters]); // Add filters as a dependency
   
+  const onSelectAdd = () => {
+    
+  }
+
 
   return (
   <AuthProvider>
@@ -117,12 +122,14 @@ function App() {
                       type={ad.type}
                       kategorija={ad.kategorija}
                       cena={ad.cena}
+                      opis={ad.opis}
                     />
                   ))}
                 </div>
               }
             />         
             <Route path="/NovOglas" element={<NovOglas />} />
+            <Route path="/SelectedOglas" element={<SelectedOglas />} />
           </Routes>
         </div>       
       </div>

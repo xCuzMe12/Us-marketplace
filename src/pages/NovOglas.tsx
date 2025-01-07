@@ -12,7 +12,7 @@ export const NovOglas = () => {
   const [kategorija, setKategorija] = useState("");
   const [cena, setCena] = useState("");
   const [images, setImages] = useState<string[]>([]);
-  const [description, setDescription] = useState("");
+  const [opis, setOpis] = useState("");
   //const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   // Handle file input change
@@ -48,12 +48,12 @@ export const NovOglas = () => {
       type,
       cena,
       kategorija: kategorija,
-      seller: "[anonymous]",
-      description,
+      seller: "[anonymous]",  //spremen pol na ime k ga dobis z avtentikacijo
+      opis: opis,
     };
   
     try {
-      // Add the ad to Firestore
+      // dodaj v Firestore
       await addDoc(collection(db, "ads"), newAd);
       console.log("Ad added to Firestore successfully!");
       navigate("/");
@@ -130,12 +130,12 @@ export const NovOglas = () => {
           </label>
           <input
             type="text"
-            id="description"
+            id="opis"
             className="form-control"
             placeholder="Kvaliteten kokain iz..."
             required
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={opis}
+            onChange={(e) => setOpis(e.target.value)}
           />
         </div>
 

@@ -35,14 +35,14 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
 
   const applyFilters = () => {
     console.log("Applying filters:", filters);
-    onApplyFilters(filters); // Send filters to App.tsx
-    setShowFilters(false); // Close filter menu
+    onApplyFilters(filters); 
+    setShowFilters(false); 
   };
 
   const navigate = useNavigate();
 
   const handleButton = () => {
-    navigate("/NovOglas"); // Navigate to /NovOglas when button is clicked
+    navigate("/NovOglas"); 
   };
 
   return (

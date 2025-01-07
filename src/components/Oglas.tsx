@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+
+
 interface Props {
   naslov: string;
   imgSrc?: string;
@@ -5,6 +8,7 @@ interface Props {
   type: string;
   kategorija: string;
   cena?: string;
+  opis?: string;
 }
 
 export const Oglas = ({
@@ -14,9 +18,17 @@ export const Oglas = ({
   type,
   kategorija,
   cena = "po dogovoru",
+  opis,
 }: Props) => {
+
+  const navigate = useNavigate();
+
+  const onSelect = () => {
+    navigate("/SelectedOglas",{ state: { naslov, imgSrc, seller, type, kategorija, cena, opis } });
+  }
+
   return (
-    <div className="oglas" style={{ scale: "1.3" }}>
+    <div onClick={(onSelect)} className="oglas" style={{ scale: "1.3" }}>
       <div style={{ display: "flex" }}>
         <p className="oglas-naslov">{naslov}</p>
         <p style={{ color: "#780606", paddingTop: "5px", paddingRight: "5px" }}>
