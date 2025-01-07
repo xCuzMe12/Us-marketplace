@@ -3,6 +3,7 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../auth";
 import { useAuth } from "../contexts/authContext";  
+import { isLoggedIn, getUser } from "../authUtils";
 
 interface Props {
   children: ReactNode;
@@ -18,7 +19,8 @@ export const Topbar = ({ children }: Props) => {
       const userCredential = await doSignInWithGoogle();
       const user = userCredential.user;
       console.log(user);
-
+      sessionStorage.setItem("isLoggedIn", "true");
+      sessionStorage.setItem("user", JSON.stringify(user));
       
     } catch (error) {
       console.error('Error during sign-in:', error);

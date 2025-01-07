@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { isLoggedIn, getUser, logInAsk } from "../authUtils";
 
 
 type Filters = {
@@ -22,6 +23,8 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
     od: "",
   });
 
+  const [error, setError] = useState("");
+
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -42,7 +45,31 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
   const navigate = useNavigate();
 
   const handleButton = () => {
-    navigate("/NovOglas"); // Navigate to /NovOglas when button is clicked
+    if (isLoggedIn()) {
+      setError(""); 
+      navigate("/NovOglas");
+    } else {
+      const errorMsg = logInAsk();
+      setError(errorMsg);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
+  
+
+  const handleMojiOglasi = () => {
+    if (isLoggedIn()) {
+      setError(""); 
+      console.log("PRIKAZEM OGLASE");
+    }
+    else {
+      const errorMsg = logInAsk();
+      setError(errorMsg);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
   };
 
   return (
@@ -55,7 +82,8 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
         >
           Objavi oglas
         </li>
-        <li className="bg-dark my-2 d-flex align-items-center list-group-item list-group-item-action sidebar">
+        <li className="bg-dark my-2 d-flex align-items-center list-group-item list-group-item-action sidebar"
+        onClick={handleMojiOglasi}>
           Moji oglasi
         </li>
         <li
@@ -69,6 +97,8 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
           Predstavitev aplikacije
         </li>
       </ul>
+      {error && <h2 style={{ color: "#FFFFFF", paddingLeft: "10px", marginTop: "5%"}}>{error}</h2>}
+
 
       {/*filtri*/}
 
