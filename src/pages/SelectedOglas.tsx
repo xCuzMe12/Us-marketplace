@@ -34,35 +34,13 @@ export const SelectedOglas = () => {
     }
   }, [seller]);
 
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+  
 
-    if (!ownerEmail) {
-      setStatus("Owner email not available.");
-      return;
-    }
-
-    try {
-      const response = await fetch('/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: ownerEmail, message }),
-      });
-
-      if (response.ok) {
-        setStatus('Message successfully sent!');
-        setMessage('');
-      } else {
-        setStatus('Error sending the message. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      setStatus('Error sending the message. Please try again.');
-    }
   };
-
+  
   return (
     <div className='SelectedCont'>
       <div className='SelectedCard'>

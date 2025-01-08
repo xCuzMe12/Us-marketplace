@@ -14,6 +14,7 @@ import { db } from "./firebase";
 import { AuthProvider } from "./contexts/authContext"
 import { isLoggedIn, getUser } from "./authUtils";
 import SelectedOglas from "./pages/SelectedOglas";
+import MojaSporocila from "./pages/MojaSporocila";
 
 
 type Filters = {
@@ -131,6 +132,7 @@ function App() {
             />         
             <Route path="/NovOglas" element={<NovOglas />} />
             <Route path="/SelectedOglas" element={<SelectedOglas />} />
+            <Route path="/MojaSporocila" element={<MojaSporocila />} />
           </Routes>
         </div>       
       </div>

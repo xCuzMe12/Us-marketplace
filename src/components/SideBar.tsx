@@ -72,6 +72,24 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
     }
   };
 
+  const handleMojaSporocila = () => {
+    if (isLoggedIn()) {
+      setError(""); 
+      navigate("/MojaSporocila");
+
+
+
+    }
+    else {
+      const errorMsg = logInAsk();
+      setError(errorMsg);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  }
+
+
   return (
 <div className="bg-dark list-group sidebarOut" style={{ }}>
       <h5 style={{ color: "#780606", paddingLeft: "10px" }}>{children}</h5>
@@ -85,6 +103,10 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
         <li className="bg-dark my-2 d-flex align-items-center list-group-item list-group-item-action sidebar"
         onClick={handleMojiOglasi}>
           Moji oglasi
+        </li>
+        <li className="bg-dark my-2 d-flex align-items-center list-group-item list-group-item-action sidebar"
+        onClick={handleMojaSporocila}>
+          Moja sporočila
         </li>
         <li
           className="bg-dark my-2 d-flex align-items-center list-group-item list-group-item-action sidebar"
