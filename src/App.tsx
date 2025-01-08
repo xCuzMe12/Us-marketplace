@@ -108,12 +108,12 @@ function App() {
           />
         </Routes>
 
-        <div className="main-content">
+        <div className="main-content" style={{overflowY: "auto" }}>
           <Routes>
             <Route
               path="/"
               element={
-                <div className="d-flex oglas-area" style={{minHeight: "100vh"}}>
+                <div className="d-flex oglas-area" style={{minHeight: "100vh" }}>
                   {ads.map((ad, index) => (
                     <Oglas
                       key={index}

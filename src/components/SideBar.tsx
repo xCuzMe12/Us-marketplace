@@ -73,7 +73,7 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
   };
 
   return (
-    <div className="bg-dark list-group sidebarOut">
+<div className="bg-dark list-group sidebarOut" style={{ }}>
       <h5 style={{ color: "#780606", paddingLeft: "10px" }}>{children}</h5>
       <ul className="list-unstyled" style={{ marginTop: "3vh" }}>
         <li

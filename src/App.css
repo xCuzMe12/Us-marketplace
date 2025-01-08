@@ -164,7 +164,8 @@ justify-content: space-between;
   min-height: "100vh";
   background-color: "#1c1c1c"; 
   padding: "20px";
-  margin-left: 5vh;
+  margin-left: 10vh;
+  margin-top: 4vh;
 }
 .SelectedCard {
   display: "flex";
@@ -178,14 +179,16 @@ justify-content: space-between;
   box-shadow: "0px 4px 6px rgba(0 0 0 0.3)";
 }
 .SelectedImage {
-  max-width: "100%";
-  border-radius: "8px";
+  max-width: 600px;  /* set to your desired width */
+  max-height: 600px; /* set to your desired height */
+  object-fit: cover;  border-radius: "8px";
   margin-bottom: "20px";
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+  display: flex;
 }
 .SelectedDet {
-  width: "100%";
+  flex: 1; /* Ensures the text section takes up the remaining space */
 }
 .SelectedTit {
   font-size: "2rem";
@@ -196,7 +199,7 @@ justify-content: space-between;
   margin-top: 2vh;
 }
 .SelectedText {
-  font-size: "1.1rem";
+  font-size: "1.5rem";
   color: "#f5f5f5"; 
   margin-bottom: "10px";
   color: #8B0000;
@@ -206,9 +209,35 @@ justify-content: space-between;
 .SelectedCena {
   font-size: 1.5rem;
   margin-left: 3vh;
-  margin-top: 10vh;
 }
 
 .highlight{
   color: #8A0000;
+}
+
+.SendMessageForm {
+  margin-top: 40px;
+  color: white;
+}
+
+.MessageInput {
+  width: 100%;
+  height: 100px;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+}
+.SendButton {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.StatusMessage {
+  margin-top: 10px;
+  color: green;
+  font-size: 14px;
 }

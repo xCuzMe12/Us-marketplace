@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { getDocs, collection, query, where, addDoc } from "firebase/firestore"; // Import required Firestore methods
+import { doc, getDoc, getDocs, collection, query, where, addDoc } from "firebase/firestore"; // Import required Firestore methods
 
 
 export const isLoggedIn = () => {
@@ -45,5 +45,32 @@ export const addUserToDb = async (user: { displayName: string; email: string }) 
     }
   } catch (error) {
     console.error("Error adding user to database:", error);
+  }
+};
+
+
+export const getUserByName = async (displayName: string) => {
+  try {
+    console.log("ime sellerja:", displayName);
+
+    // Query the users collection where displayName matches
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("displayName", "==", displayName));
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const userDoc = querySnapshot.docs[0]; 
+      console.log("USER OBSTAJA");
+      const userData = userDoc.data();
+      console.log(userData); // Make sure userData contains the email
+      return userData.email; // Return only the email
+    } else {
+      console.log("No such user!");
+      return null; // Return null if no user found
+    }
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return null;
   }
 };
