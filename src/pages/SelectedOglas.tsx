@@ -104,7 +104,7 @@ export const SelectedOglas = () => {
             required
           />
           <button type='submit' className='SendButton'>
-            Send Message
+            Pošlji Sporočilo
           </button>
         </form>
         {status && <p className='StatusMessage'>{status}</p>}
