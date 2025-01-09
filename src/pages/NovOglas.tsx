@@ -70,7 +70,7 @@ export const NovOglas = () => {
   return (
     <div
       className="d-flex justify-content-center align-items-center vh-100"
-      style={{ backgroundColor: "#343a40", marginLeft: "5%", marginTop: "10%"}}
+      style={{width: '1000px', backgroundColor: "#343a40", marginLeft: "10%", marginTop: "10%"}}
     >
       <form
         className="p-4 rounded shadow"
@@ -194,12 +194,12 @@ export const NovOglas = () => {
             style={{ backgroundColor: "#343a40", color: "#b71c1c" }}
             onChange={(e) => setKategorija(e.target.value)}
           >
+            <option value="ostalo">Ostalo</option>
             <option value="droge">Droge</option>
             <option value="orožije">Orožje</option>
             <option value="ljudje">Ljudje</option>
             <option value="organi">Organi</option>
             <option value="tehnika">Tehnika</option>
-            <option value="ostalo">Ostalo</option>
           </select>
         </div>
 
