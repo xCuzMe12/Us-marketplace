@@ -96,7 +96,7 @@ function App() {
   return (
   <AuthProvider>
     <Router>
-      <div className="d-flex" style={{ minHeight: "100vh", minWidth: "100vh", backgroundColor: '#343a40' }}>
+      <div className="d-flex" style={{ minHeight: "100vh", minWidth: "100vh", backgroundColor: '#343a40',overflowY: "hidden", overflowX: "hidden" }}>
         <Routes>
           <Route
             path="*"
@@ -109,7 +109,7 @@ function App() {
           />
         </Routes>
 
-        <div className="main-content" style={{overflowY: "auto" }}>
+        <div className="main-content" style={{overflowY: "hidden", overflowX: "hidden" }}>
           <Routes>
             <Route
               path="/"

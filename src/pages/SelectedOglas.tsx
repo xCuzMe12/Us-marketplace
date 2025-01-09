@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useLocation } from "react-router-dom";
 import { getUserByName } from "../authUtils";
+import { zapisiSporocilo } from "../sporocila"
+import { getUser } from "../authUtils";
+
 
 export const SelectedOglas = () => {
   const location = useLocation();
@@ -9,6 +12,9 @@ export const SelectedOglas = () => {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
   const [ownerEmail, setOwnerEmail] = useState<string | null>(null); 
+
+    const user = getUser();
+    const userEmail = user.email;
 
   // Get the seller's email asynchronously
   const getSellerEmail = async (seller: string) => {
@@ -38,7 +44,18 @@ export const SelectedOglas = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
   
-
+    if (!ownerEmail) {
+      setStatus("Email prodajalca ni bil najden.");
+      return;
+    }
+  
+    try {
+      await zapisiSporocilo(naslov, userEmail, ownerEmail, message);
+      setStatus("Sporočilo poslano.");
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setStatus("Napaka.");
+    }
   };
   
   return (
