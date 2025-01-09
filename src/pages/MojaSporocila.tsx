@@ -18,7 +18,7 @@ const MojaSporocila = () => {
     if (replyText) {
       const message = messages.find((msg) => msg.id === id);
       if (message) {
-        const recipientEmail = message.prejemnik; // Assuming you want the recipient's email
+        const recipientEmail = message.posiljatelj; // Assuming you want the recipient's email
         console.log(`Replying to message ID ${id}: ${replyText}`);
   
         zapisiSporocilo("ODGOVOR", recipientEmail, mojEmail, replyText);
