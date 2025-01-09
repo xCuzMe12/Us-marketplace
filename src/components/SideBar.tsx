@@ -89,11 +89,26 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
       }, 5000);
     }
   }
+  
+  const handlePredstavitevAplikacije = () => {
+    navigate("/PredstavitevAplikacije");
+  }
 
 
   return (
 <div className="bg-dark list-group sidebarOut" style={{ }}>
-      <h5 style={{ color: "#780606", paddingLeft: "10px" }}>{children}</h5>
+    <div style={{ display: "flex", alignItems: "center" }}>
+    <img 
+        style={{
+          marginLeft: "10px", // Reduced margin for better alignment
+          width: "30%", 
+          borderRadius: "100%"
+        }} 
+        src="src/logo/logo1.png" 
+        alt="LOGO" 
+      />
+      <h2 style={{ color: "#780606", paddingLeft: "10px" }}>{children}</h2>
+    </div>
       <ul className="list-unstyled" style={{ marginTop: "3vh" }}>
         <li
           className="bg-dark my-2 d-flex align-items-center list-group-item list-group-item-action sidebar"
@@ -116,7 +131,8 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
           Filtriraj oglase
         </li>
 
-        <li className="bg-dark my-2 d-flex align-items-center list-group-item list-group-item-action sidebar">
+        <li className="bg-dark my-2 d-flex align-items-center list-group-item list-group-item-action sidebar"
+        onClick={handlePredstavitevAplikacije}>
           Predstavitev aplikacije
         </li>
       </ul>

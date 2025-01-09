@@ -16,7 +16,7 @@ import { isLoggedIn, getUser } from "./authUtils";
 import SelectedOglas from "./pages/SelectedOglas";
 import MojaSporocila from "./pages/MojaSporocila";
 import MojiOglasi from "./pages/MojiOglasi"
-
+import PredstavitevAplikacije from "./pages/PredstavitevAplikacije"
 
 type Filters = {
   kategorija?: string;
@@ -135,6 +135,7 @@ function App() {
             <Route path="/SelectedOglas" element={<SelectedOglas />} />
             <Route path="/MojaSporocila" element={<MojaSporocila />} />
             <Route path="/MojiOglasi" element={<MojiOglasi />} />
+            <Route path="/PredstavitevAplikacije" element={<PredstavitevAplikacije />} />
           </Routes>
         </div>       
       </div>

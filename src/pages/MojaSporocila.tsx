@@ -98,8 +98,8 @@ const MojaSporocila = () => {
               ) : (
                 <p style={{ color: "white" }}><strong>OGLAS:</strong> {message.oglas}</p>
               )}
-              <p style={{ color: "white" }}><strong>Sender:</strong> {message.posiljatelj}</p>
-              <p style={{ color: "white" }}><strong>Message:</strong> {message.sporocilo}</p>
+              <p style={{ color: "white" }}><strong>Pošiljatelj:</strong> {message.posiljatelj}</p>
+              <p style={{ color: "white" }}><strong>Sporočilo:</strong> {message.sporocilo}</p>
               <div style={{ display: "flex", paddingRight: "10%", alignItems: "center", gap: "10px" }}>
                 <input
                   type="text"
