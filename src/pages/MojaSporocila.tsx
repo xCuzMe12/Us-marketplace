@@ -21,7 +21,7 @@ const MojaSporocila = () => {
         const recipientEmail = message.posiljatelj; // Assuming you want the recipient's email
         console.log(`Replying to message ID ${id}: ${replyText}`);
   
-        zapisiSporocilo("ODGOVOR", recipientEmail, mojEmail, replyText);
+        zapisiSporocilo("ODGOVOR",mojEmail, recipientEmail, replyText);
   
         // Clear the reply input field for the specific message after sending
         setReplies((prevReplies) => ({ ...prevReplies, [id]: "" }));
