@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import logo from '../logo/logo1.png';
 
 
 const PredstavitevAplikacije = () => {
@@ -13,7 +14,7 @@ Vsak oglas vključuje možnost dodajanja slik, opisov in kategorij, kar omogoča
 
 S svojo diskretno zasnovo in uporabniku prijaznim vmesnikom aplikacija zagotavlja prostor, kjer lahko uporabniki brez skrbi trgujejo in komunicirajo. Idealna je za tiste, ki iščejo varno in zanesljivo platformo za občutljive posle na črnem trgu.
 <br /><br /><br />Lastnika: Anonimno</p>
-<img style={{width: "30%", borderRadius: "100%"}} src="src\logo\logo1.png" alt="LOGO" />
+<img style={{width: "30%", borderRadius: "100%"}} src={logo} alt="LOGO" />
     </div>
   );
 };
