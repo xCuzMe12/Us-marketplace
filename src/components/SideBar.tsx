@@ -62,6 +62,7 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
     if (isLoggedIn()) {
       setError(""); 
       console.log("PRIKAZEM OGLASE");
+      navigate("/MojiOglasi");
     }
     else {
       const errorMsg = logInAsk();
