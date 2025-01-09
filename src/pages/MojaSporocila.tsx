@@ -18,9 +18,9 @@ const MojaSporocila = () => {
     if (replyText) {
       const message = messages.find((msg) => msg.id === id);
       if (message) {
-        const recipientEmail = message.posiljatelj; // Assuming you want the recipient's email
-        console.log(`Replying to message ID ${id}: ${replyText}`);
-  
+        const recipientEmail = message.prejemnik; 
+        console.log("moj email: " + mojEmail);
+        console.log(`email do tistega ko posiljas: ` + recipientEmail);
         zapisiSporocilo("ODGOVOR",mojEmail, recipientEmail, replyText);
   
         // Clear the reply input field for the specific message after sending
