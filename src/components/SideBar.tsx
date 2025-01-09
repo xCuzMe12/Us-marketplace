@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { isLoggedIn, getUser, logInAsk } from "../authUtils";
+import logo from '../logo/logo1.png';
 
 
 type Filters = {
@@ -104,7 +105,7 @@ export const SideBar = ({ children = "", onApplyFilters }: Props) => {
           width: "30%", 
           borderRadius: "100%"
         }} 
-        src="src/logo/logo1.png" 
+        src={logo} 
         alt="LOGO" 
       />
       <h2 style={{ color: "#780606", paddingLeft: "10px" }}>{children}</h2>

@@ -103,7 +103,7 @@ function App() {
             path="*"
             element={
               <>
-                <Topbar>UŠ++++</Topbar>
+                <Topbar>UŠ</Topbar>
                 <SideBar onApplyFilters={handleApplyFilters}>Možnosti</SideBar>
               </>
             }
