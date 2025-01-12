@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { isLoggedIn, getUser, logInAsk } from "../authUtils";
 
 
 interface Props {
@@ -24,7 +25,12 @@ export const Oglas = ({
   const navigate = useNavigate();
 
   const onSelect = () => {
-    navigate("/SelectedOglas",{ state: { naslov, imgSrc, seller, type, kategorija, cena, opis } });
+     if (isLoggedIn()) {
+
+      navigate("/SelectedOglas",{ state: { naslov, imgSrc, seller, type, kategorija, cena, opis } });
+    } else {
+          const errorMsg = logInAsk();
+        }
   }
 
   return (
