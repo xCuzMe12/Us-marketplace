@@ -10,7 +10,8 @@
 ## Zaslonske slike
 
 ### Mobilna aplikacija
-1. ![Zaslonska slika 1](pot-do-slike)
+1. ![image](https://github.com/user-attachments/assets/67f7709e-d6ac-4d22-b4ff-42707c714bd0)
+
 
 ### Spletna aplikacija
 2. ![Moji oglasi](https://github.com/user-attachments/assets/62b0cb05-6e4c-4935-8b4e-66b107961bfc)
