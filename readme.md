@@ -35,7 +35,7 @@
 ---
 
 ## Podatkovni model podatkovne baze
-![Uploading image.png…]()
+![Izgled baze]()
 ---![image](https://github.com/user-attachments/assets/4d9e5633-d977-4464-afb3-c99d3ca2a2fa)
 
 ### Opis podatkovnega modela
