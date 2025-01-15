@@ -10,12 +10,13 @@
 
 ### Mobilna aplikacija
 1. ![Zaslonska slika 1](pot-do-slike)
-2. ![Zaslonska slika 2](pot-do-slike)
 
 ### Spletna aplikacija
-3. ![Zaslonska slika 3](pot-do-slike)
-4. ![Zaslonska slika 4](pot-do-slike)
-5. ![Zaslonska slika 5](pot-do-slike)
+2. ![Moji oglasi](https://github.com/user-attachments/assets/62b0cb05-6e4c-4935-8b4e-66b107961bfc)
+3. ![Začetna stran](https://github.com/user-attachments/assets/767b788b-cbdc-4611-9901-5af9fc313437)
+4. ![Objava oglasa](https://github.com/user-attachments/assets/1cdb41f6-f0d7-49a5-977b-55b68971b718)
+5. ![Sporočilo](https://github.com/user-attachments/assets/d54a9f05-cd25-44ed-b5b8-b22f5a7ba353)
+
 
 
 
