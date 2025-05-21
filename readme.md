@@ -42,7 +42,7 @@
 ---![image](https://github.com/user-attachments/assets/4d9e5633-d977-4464-afb3-c99d3ca2a2fa)
 
 ### Opis podatkovnega modela
-- Entitete: ads, users, sporočila
+- Entitete: ads, users, sporočila, moderator - ni nama uspelo dokončati
 - Entitete so povezane po atributu imena oglaševalca in njegovega kontakta.
 - ads: cena (string poljubne oblike €/$/... /gram/glavo/...), imgSrc (slika v base64 stringu), seller (ime oglaševalca), naslov, kategorija (orožje/droge/ljudje/organi/tehnika/ostalo), opis, type (produkt/storitev)
 - sporocila: prejemnik (gmail), posiljatelj (gmail), casSporocila (timestamp kdaj je bilo poslano), jeNovo (označeno v aplikaciji), sporocilo.
